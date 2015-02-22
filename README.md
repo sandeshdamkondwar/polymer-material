@@ -1,2 +1,4 @@
 # polymer-material
-Material design concept using polymer
+Contact Manager Material Design Web App
+
+Framework & Technologies used : Angular, Polymer
