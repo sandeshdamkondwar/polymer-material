@@ -1,0 +1,61 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../post-service/post-service.html">
+<link rel="import" href="contact-card.html">
+
+<polymer-element name="contact-list" attributes="show">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+    contact-card {
+      margin-bottom: 20px;
+    }
+
+    contact-card .name {
+      margin: 0;
+    }
+
+    contact-card .phone {
+      margin-top: 0.5em;
+      font-size: .9rem;
+    }
+
+    contact-card .detail {
+      padding-left: 1rem;
+    }
+
+    </style>
+
+    <post-service id="service" contacts="{{contacts}}">
+    </post-service>
+
+    <div layout vertical center>
+
+      <template repeat="{{contact in contacts}}">
+        <contact-card layout horizontal
+              favorite="{{contact.favorite}}"
+              on-favorite-tap="{{handleFavorite}}"
+              hidden?="{{show == 'favorites' && !contact.favorite}}">
+          <div flex>
+            <img src="{{contact.avatar}}" width="70" height="70">
+          </div>
+          <div flex three class="detail">
+            <h4 class="name">{{ contact.firstname + " " + contact.lastname }}</h4>
+            <p class="phone"><a href="{{ 'tel:' + contact.phone }}">{{ contact.phone }}</a></p>
+          </div>
+        </contact-card>
+      </template>
+
+    </div>
+  </template>
+  <script>
+  Polymer({
+    handleFavorite: function(event, detail, sender) {
+      var contact = sender.templateInstance.model.contact;
+      this.$.service.setFavorite(contact.uid, contact.favorite);
+    }
+  });
+  </script>
+</polymer-element>

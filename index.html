@@ -9,13 +9,14 @@
     <link rel="import" href="components/core-toolbar/core-toolbar.html">
     <link rel="import" href="components/paper-tabs/paper-tabs.html">
     <link rel="import" href="contact-card.html">
+    <link rel="import" href="contact-list.html">
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body unresolved>
     <core-header-panel>
 
       <core-toolbar>
-        <paper-tabs id="tabs" selected="all" self-end>
+        <paper-tabs id="tabs" selected="0" self-end>
           <paper-tab name="contacts">Contacts</paper-tab>
           <paper-tab name="recent">Recent</paper-tab>
           <paper-tab name="dialer">Speed Dial</paper-tab>
@@ -24,12 +25,7 @@
 
       <!-- main page content will go here -->
       <div class="container" layout vertical center>
-        <contact-card>
-          <img width="70" height="70"
-            src="images/avatar-07.svg">
-          <h2>Paul Irish</h2>
-          <p>Web Developer</p>
-        </contact-card>
+        <contact-list show="all"></contact-list>
       </div>
 
     </core-header-panel>
@@ -37,8 +33,10 @@
     <script>
       var tabs = document.querySelector('paper-tabs');
 
+      var list = document.querySelector('contact-list');
+
       tabs.addEventListener('core-select', function() {
-        console.log("Selected: " + tabs.selected);
+        list.show = tabs.selected;
       });
     </script>
   </body>
